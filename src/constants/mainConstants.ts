@@ -1,11 +1,17 @@
+import cars from '../assets/carsSprite.png';
+
 type MainConstants={
     rootDiv:HTMLElement | null;
     inGame:boolean;
+    carsSprite:any;
 }
+const carsSprite=new Image();
+carsSprite.src=cars;
 
 const mainConstants: MainConstants={
     rootDiv:document.getElementById('game-container'),
-    inGame:false
+    inGame:false,
+    carsSprite:carsSprite
 }
 
 if (mainConstants.rootDiv){

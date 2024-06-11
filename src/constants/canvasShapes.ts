@@ -1,7 +1,8 @@
 import Point from "../geomerty/point";
 import Line from "../geomerty/line";
 const windowHeight:number=0.9*window.innerHeight;
-const windowWidth:number=0.8 * window.innerWidth;
+let windowWidth;
+window.innerWidth>760?windowWidth=0.3 * window.innerWidth:windowWidth=window.innerWidth;
 const numberOfLanes=3;
 const offset=10;
 const widthDifference=windowWidth/numberOfLanes;

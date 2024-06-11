@@ -14,7 +14,7 @@ type Vtyp={
 const vtyp:Vtyp={
     truck:{
         height:300,
-        speed:15 //lower the actual speed, faster we can overtake so higher value
+        speed:13 //lower the actual speed, faster we can overtake so higher value
     },
     car:{
         height:200,
@@ -28,9 +28,9 @@ type ObstacleConstant={
     vtyp: Vtyp;
 }
 
-const width=250;
-const height=200
-const heightOffeset=5
+const width=0.4*canvasConstants.widthDifference;
+//const height=200
+//const heightOffeset=5
 const obstacleConstant: ObstacleConstant={
     // position:new Point(canvasConstants.widthDifference,canvasConstants.windowHeight+height),
     position:new Point(0,0),

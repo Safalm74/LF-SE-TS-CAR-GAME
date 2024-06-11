@@ -2,12 +2,15 @@ import Rectangle from "./geomerty/rectrangle";
 import Point from "./geomerty/point";
 import Obstacle from "./obstacles";
 import canvasConstants from "./constants/canvasShapes";
+import mainConstants from "./constants/mainConstants";
+import spritelocations from "./constants/spritelocations";
 interface Iplayer{
     position:Point;
     width:number;
     height:number;
     body:Rectangle;
     positionIndex:number;
+    score:number;
 }
 
 export default class Player implements Iplayer{
@@ -16,6 +19,7 @@ export default class Player implements Iplayer{
     height;
     body;
     positionIndex;
+    score;
     constructor(p:Point,w:number,h:number,pi:number=1){
         this.position=p;
         this.width=w;
@@ -26,6 +30,22 @@ export default class Player implements Iplayer{
             this.width,
             this.height);
         this.positionIndex=pi;
+        this.score=0;
+    }
+
+    draw(contextOb:CanvasRenderingContext2D):void{
+        this.width=spritelocations.police.width;
+        this.height=spritelocations.police.height;
+        contextOb.drawImage(
+            mainConstants.carsSprite,
+            spritelocations.police.x,
+            spritelocations.police.y,
+            this.width,
+            this.height,
+            this.position.x,
+            this.position.y,
+            this.width,
+            this.height);
     }
     move(left:boolean,widthDifference:number,offset:number){
         const oldPosition=this.position.x;
@@ -46,15 +66,10 @@ export default class Player implements Iplayer{
             ()=>{
                 this.position.x+=adder;
                 this.update();
-                if (this.position.x>=canvasConstants.windowWidth-canvasConstants.offset-this.width){
-                    this.position.x=canvasConstants.windowWidth-canvasConstants.offset-this.width;
+                if (this.position.x*adder>newPosition*adder){
                     clearInterval(canvasConstants.movingInterval);
                 }
-                if (this.position.x<=canvasConstants.offset){
-                    this.position.x=canvasConstants.offset;
-                    clearInterval(canvasConstants.movingInterval);
-                }
-            },5
+            },2
         );
     }
     update(){
