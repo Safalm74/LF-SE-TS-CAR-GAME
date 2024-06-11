@@ -1,28 +1,27 @@
 import canvasConstants from "./constants/canvasShapes";
 import mainConstants from "./constants/mainConstants";
 import playerConstants from "./constants/player";
-import Player from "./player";
 import obstacleConstant from "./constants/obstacles";
 import Obstacle from "./obstacles";
 import getRandomInt from "./utils/randomNumber";
 import Point from "./geomerty/point";
 import Coin from "./coins";
 import coinsSprite from "./constants/coinsSprite";
+import { player1 } from "./initialize";
 
 const canvasMain: HTMLCanvasElement=document.createElement('canvas') as HTMLCanvasElement;
 const msg=document.createElement('h1');
-const player1=new Player(
-    playerConstants.position,
-    playerConstants.width,
-    playerConstants.height
-)
+msg.style.backgroundColor="wheat"
 
-if (mainConstants.rootDiv){
-    mainConstants.rootDiv.innerHTML='';
-    mainConstants.rootDiv.appendChild(msg);
-    mainConstants.rootDiv.appendChild(canvasMain);
-
+function loadDOM(){
+    if (mainConstants.rootDiv){
+        mainConstants.rootDiv.innerHTML='';
+        mainConstants.rootDiv.appendChild(msg);
+        mainConstants.rootDiv.appendChild(canvasMain);
+    
     }
+}
+
 
 const ctx=canvasMain.getContext('2d') as CanvasRenderingContext2D;
 
@@ -44,7 +43,7 @@ function createObsticles(){
     }
     const randomV='truck';
     if (player1.score>10){
-        obstacleConstant.vtyp[randomV].speed +=Math.exp(-player1.score/10)*2;
+        obstacleConstant.vtyp[randomV].speed +=Math.exp(-player1.score/10)*3;
     }
     const obstacleObj: Obstacle=new Obstacle(
         new Point(
@@ -145,14 +144,18 @@ function gameMainloop(){
     );
     player1.update();
     player1.draw(ctx);
-    player1.checkCollision(obstaclesArray);
+    player1.checkCollision(obstaclesArray,coinsArray);
 
     
 
     msg.innerHTML=`score: ${player1.score}`;
-    requestAnimationFrame(gameMainloop);
+    if (mainConstants.inGame){
+        requestAnimationFrame(gameMainloop);
+    }
 }
 export default function canvasInitialize(){
+    if (mainConstants.rootDiv) mainConstants.rootDiv.innerHTML='';
+    loadDOM();
     mainConstants.inGame=true;
     const canvasWidth:number= canvasConstants.windowWidth;
     const canvasHeight:number=  canvasConstants.windowHeight;
@@ -160,7 +163,22 @@ export default function canvasInitialize(){
     canvasMain.height=canvasHeight;
     canvasMain.style.display='block';
     canvasMain.style.margin="0 auto";
-    canvasMain.style.backgroundColor="#ddd";   
+    canvasMain.style.backgroundColor="rgba(125,125,125,0.9)";   
+    canvasMain.addEventListener(
+        'click',
+        (e)=>{
+            if (e.offsetX<canvasConstants.windowWidth/2){
+                clearInterval(canvasConstants.movingInterval);
+                player1.move(true,canvasConstants.widthDifference,playerConstants.offset)     
+            }
+            else{
+                clearInterval(canvasConstants.movingInterval);
+                        player1.move(false,canvasConstants.widthDifference,playerConstants.offset);
+
+            }
+
+        }
+    );
     window.addEventListener(
         'keypress',
         (e)=>{

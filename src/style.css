@@ -11,3 +11,33 @@ body{
   justify-content: center;
   align-items: center;
 }
+.start-btn{
+  font-size: 5rem;
+  padding: 3rem 7rem;
+  border-radius: 5rem 2rem;
+  background-color: beige;
+  transition: all .5s;
+}
+.start-btn:hover{
+  background-color: wheat;
+  transform: scale(1.01);
+}
+.game-container{
+  background-image: linear-gradient(
+    to right,
+    rgba(145, 112, 112, 0.2),
+    rgba(24, 22, 22, 0.2)
+  ),
+   url('../public/rootBG.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.home-page{
+  background-image: linear-gradient(
+    to right,
+    rgba(16, 103, 184, 0.4),
+    rgba(32, 28, 28, 0.5)
+  ),url(../public/background.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}

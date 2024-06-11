@@ -1,5 +1,6 @@
 import Point from "./geomerty/point";
 import coinsSprite from "./constants/coinsSprite";
+import canvasConstants from "./constants/canvasShapes";
 interface Icoin{
     position:Point;
     width:number;
@@ -29,43 +30,23 @@ export default class Coin implements Icoin{
         this.height=h;
         this.speed=s;
         this.positionIndex=pi;
-        this.animationIndex=0;
+        this.animationIndex=animationIndex;
         
     }
 
     draw(contextOb:CanvasRenderingContext2D):void{
         this.width=coinsSprite.width;
         this.height=coinsSprite.height;
-        // contextOb.drawImage(
-            // coinsSprite.coinsImage,
-            // coinsSprite.x+coinsSprite.width*index,
-            // coinsSprite.y,
-            // this.width,
-            // this.height,
-            // this.position.x,
-            // this.position.y,
-            // this.width,
-            // this.height);
-        setInterval (
-            ()=>{
-                console.log(coinsSprite.x+coinsSprite.width*this.animationIndex)
-                contextOb.drawImage(
-                coinsSprite.coinsImage,
-                coinsSprite.x+coinsSprite.width*this.animationIndex,
-                coinsSprite.y,
-                this.width,
-                this.height,
-                this.position.x,
-                this.position.y,
-                this.width,
-                this.height);
-                this.animationIndex++;
-                this.animationIndex=this.animationIndex%6;
-
-            }
-            ,
-            100
-        );
+        contextOb.drawImage(
+            coinsSprite.coinsImage,
+            coinsSprite.x+coinsSprite.width,
+            coinsSprite.y,
+            this.width,
+            this.height,
+            this.position.x,
+            this.position.y,
+            this.width,
+            this.height);
         
     }
     move(){
@@ -73,5 +54,8 @@ export default class Coin implements Icoin{
     }
     update(){
         this.move();
+    }
+    hide(){
+        this.position.y=canvasConstants.windowHeight;
     }
 }

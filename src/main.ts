@@ -1,7 +1,4 @@
-import canvasInitialize from "./gameCanvas";
-//import loadHomePage from "./home";
 
-//canvasInitialize();\
+import loadHomePage from "./pages/home";
 
-//loadHomePage();
-canvasInitialize();
+loadHomePage();

@@ -1,4 +1,3 @@
-import Rectangle from "./geomerty/rectrangle";
 import Point from "./geomerty/point";
 import spritelocations from "./constants/spritelocations";
 import mainConstants from "./constants/mainConstants";
@@ -6,7 +5,6 @@ interface Iobstacle{
     position:Point;
     width:number;
     height:number;
-    body:Rectangle;
     speed:number;
     positionIndex:number;
 }
@@ -15,7 +13,6 @@ export default class Obstacle implements Iobstacle{
     position;
     width;
     height;
-    body;
     speed;
     positionIndex;
     constructor(
@@ -28,11 +25,6 @@ export default class Obstacle implements Iobstacle{
         this.position=p;
         this.width=w;
         this.height=h;
-        this.body=new Rectangle(
-            this.position.x,
-            this.position.y,
-            this.width,
-            this.height);
         this.speed=s
         this.positionIndex=pi;
     }
@@ -50,12 +42,13 @@ export default class Obstacle implements Iobstacle{
             this.position.y,
             this.width,
             this.height);
+
+        contextOb.strokeRect(this.position.x,this.position.y,this.width,this.height)
         }
     move(){
         this.position.y +=this.speed;
     }
     update(){
         this.move();
-        this.body.y =this.position.y
     }
 }
