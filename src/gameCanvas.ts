@@ -127,7 +127,7 @@ setInterval(
             }
         );
     },
-    obstacleConstant.vtyp['truck'].speed*76
+    obstacleConstant.vtyp['truck'].speed*200
 );
 
 
@@ -224,6 +224,7 @@ export default function canvasInitialize(){
                         player1.move(false,canvasConstants.widthDifference,playerConstants.offset);
                         break;
                     case 'w':
+
                         if (player1.bulletsRemaining>0){
                             player1.bulletsRemaining--;
                             const bulletObj: Bullet=new Bullet(
@@ -236,8 +237,7 @@ export default function canvasInitialize(){
                                 player1.positionIndex ,
                                 0
                             )
-                            bulletArray.push(bulletObj)
-                        }
+                            bulletArray.push(bulletObj)}
                         break;
                         case 'r':
                             if (player1.bankBalance>100){

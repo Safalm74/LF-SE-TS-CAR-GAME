@@ -14,7 +14,7 @@ type Vtyp={
 const vtyp:Vtyp={
     truck:{
         height:300,
-        speed:8 //lower the actual speed, faster we can overtake so higher value
+        speed:5//lower the actual speed, faster we can overtake so higher value
     },
     car:{
         height:200,
