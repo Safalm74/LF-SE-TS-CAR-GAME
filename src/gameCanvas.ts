@@ -7,7 +7,7 @@ import getRandomInt from "./utils/randomNumber";
 import Point from "./geomerty/point";
 import Coin from "./coins";
 import coinsSprite from "./constants/coinsSprite";
-import { player1 } from "./initialize";
+import { player1, reset } from "./initialize";
 import Bullet from "./bullets";
 
 const canvasMain: HTMLCanvasElement=document.createElement('canvas') as HTMLCanvasElement;
@@ -34,7 +34,7 @@ const ctx=canvasMain.getContext('2d') as CanvasRenderingContext2D;
 
 let obstaclesArray: Obstacle[]=[];
 let coinsArray: Coin[]=[];
-let bulletArray: Bullet[]=[];
+export let bulletArray: Bullet[]=[];
 
 function createObsticles(){
     let positionIndex:number
@@ -180,12 +180,14 @@ function gameMainloop(){
 
     obstaclesArray=[];
     coinsArray=[];
+    bulletArray=[];
 
     }
 }
 export default function canvasInitialize(){
     if (mainConstants.rootDiv) mainConstants.rootDiv.innerHTML='';
     loadDOM();
+    reset();
     mainConstants.inGame=true;
     const canvasWidth:number= canvasConstants.windowWidth;
     const canvasHeight:number=  canvasConstants.windowHeight;
@@ -208,49 +210,7 @@ export default function canvasInitialize(){
 
         }
     );
-    window.addEventListener(
-        'keypress',
-        (e)=>{
-            if (mainConstants.inGame){
-                switch(e.key){
-                    case 'a':
-                        clearInterval(canvasConstants.movingInterval);
-                        player1.move(true,canvasConstants.widthDifference,playerConstants.offset)
-                        break;
 
-                    case 'd':
-                        
-                        clearInterval(canvasConstants.movingInterval);
-                        player1.move(false,canvasConstants.widthDifference,playerConstants.offset);
-                        break;
-                    case 'w':
-
-                        if (player1.bulletsRemaining>0){
-                            player1.bulletsRemaining--;
-                            const bulletObj: Bullet=new Bullet(
-                                new Point(
-                                    player1.position.x,
-                                    player1.position.y +Math.floor(player1.width/2)),
-                                coinsSprite.width,
-                                coinsSprite.height,
-                                obstacleConstant.vtyp.truck.speed,
-                                player1.positionIndex ,
-                                0
-                            )
-                            bulletArray.push(bulletObj)}
-                        break;
-                        case 'r':
-                            if (player1.bankBalance>100){
-                                player1.bulletsRemaining++;
-                                player1.bankBalance -=100;
-                            
-                            }
-                            break;
-                }
-                
-            }
-        }
-    );
 
     player1.body.draw(ctx);
     for(let i=0;i<canvasConstants.line.length;i++){

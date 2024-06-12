@@ -58,7 +58,9 @@ export default class Player implements Iplayer{
             }
     move(left:boolean,widthDifference:number,offset:number){
         const oldPosition=this.position.x;
+        console.log('old idcex:',this.positionIndex);
         let adder:number;
+        
         if (left){
             if (this.positionIndex>0){
                 this.positionIndex--;
@@ -77,9 +79,12 @@ export default class Player implements Iplayer{
                 this.update();
                 if (this.position.x*adder>newPosition*adder){
                     clearInterval(canvasConstants.movingInterval);
+
                 }
             },2
         );
+
+        console.log('new idcex:',this.positionIndex);
     }
     update(){
         this.body.x=this.position.x;
