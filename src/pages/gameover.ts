@@ -1,6 +1,6 @@
 import mainConstants from "../constants/mainConstants";
 import loadHomePage from "./home";
-
+import { player1, reset } from "../initialize";
 
 export default function gameoverPage(score:number){
     const wrapper= document.createElement('div');
@@ -41,6 +41,8 @@ export default function gameoverPage(score:number){
     
     if (mainConstants.rootDiv){
         mainConstants.rootDiv.appendChild(wrapper);
+        reset();
+        console.log(player1);
     }
     
 }

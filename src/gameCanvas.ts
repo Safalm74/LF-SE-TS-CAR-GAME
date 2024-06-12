@@ -118,6 +118,8 @@ setInterval(
 );
 
 function gameMainloop(){
+
+    console.log('then in gameloop',mainConstants.inGame)
     ctx.clearRect(
         0,
         0,
@@ -152,10 +154,17 @@ function gameMainloop(){
     if (mainConstants.inGame){
         requestAnimationFrame(gameMainloop);
     }
+    else{
+
+    obstaclesArray=[];
+    coinsArray=[];
+
+    }
 }
 export default function canvasInitialize(){
     if (mainConstants.rootDiv) mainConstants.rootDiv.innerHTML='';
     loadDOM();
+    console.log('here')
     mainConstants.inGame=true;
     const canvasWidth:number= canvasConstants.windowWidth;
     const canvasHeight:number=  canvasConstants.windowHeight;
