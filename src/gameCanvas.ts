@@ -12,15 +12,18 @@ import Bullet from "./bullets";
 
 const canvasMain: HTMLCanvasElement=document.createElement('canvas') as HTMLCanvasElement;
 const scoreTopMsg=document.createElement('h1');
-scoreTopMsg.style.backgroundColor="wheat"
+scoreTopMsg.style.backgroundColor="wheat";
 const bulletsRemainingTopMsg=document.createElement('h1');
-bulletsRemainingTopMsg.style.backgroundColor="wheat"
+bulletsRemainingTopMsg.style.backgroundColor="wheat";
+const bankBalanceTopMsg=document.createElement('h1');
+bankBalanceTopMsg.style.backgroundColor="wheat";
 
 function loadDOM(){
     if (mainConstants.rootDiv){
         mainConstants.rootDiv.innerHTML='';
         mainConstants.rootDiv.appendChild(scoreTopMsg);
         mainConstants.rootDiv.appendChild(bulletsRemainingTopMsg);
+        mainConstants.rootDiv.appendChild(bankBalanceTopMsg);
         mainConstants.rootDiv.appendChild(canvasMain);
     
     }
@@ -127,6 +130,7 @@ setInterval(
     obstacleConstant.vtyp['truck'].speed*76
 );
 
+
 function gameMainloop(){
     ctx.clearRect(
         0,
@@ -168,6 +172,7 @@ function gameMainloop(){
 
     scoreTopMsg.innerHTML=`score: ${player1.score}`;
     bulletsRemainingTopMsg.innerHTML=`BulletsRemaining: ${player1.bulletsRemaining}`;
+    bankBalanceTopMsg.innerHTML=`Bank Balance: ${player1.bankBalance}`;
     if (mainConstants.inGame){
         requestAnimationFrame(gameMainloop);
     }
@@ -199,7 +204,6 @@ export default function canvasInitialize(){
             else{
                 clearInterval(canvasConstants.movingInterval);
                         player1.move(false,canvasConstants.widthDifference,playerConstants.offset);
-
             }
 
         }
@@ -225,7 +229,7 @@ export default function canvasInitialize(){
                             const bulletObj: Bullet=new Bullet(
                                 new Point(
                                     player1.position.x,
-                                    player1.position.y),
+                                    player1.position.y +Math.floor(player1.width/2)),
                                 coinsSprite.width,
                                 coinsSprite.height,
                                 obstacleConstant.vtyp.truck.speed,
@@ -235,6 +239,13 @@ export default function canvasInitialize(){
                             bulletArray.push(bulletObj)
                         }
                         break;
+                        case 'r':
+                            if (player1.bankBalance>100){
+                                player1.bulletsRemaining++;
+                                player1.bankBalance -=100;
+                            
+                            }
+                            break;
                 }
                 
             }

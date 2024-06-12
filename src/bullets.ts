@@ -68,7 +68,7 @@ export default class Bullet implements Ibullet{
                 obj.position.y+obj.height  >= this.position.y&&
                 obj.position.y<= this.position.y + this.height&&
                 obj.position.x+obj.width>= this.position.x &&
-                obj.position.x+obj.width<=this.position.x+obj.width+this.width
+                obj.position.x+obj.width<=this.position.x+obj.width+this.width 
                 ){
                     obj.position.y=canvasConstants.windowHeight;
                }

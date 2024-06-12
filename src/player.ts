@@ -15,6 +15,7 @@ interface Iplayer{
     positionIndex:number;
     score:number;
     bulletsRemaining:number;
+    bankBalance:number;
 }
 
 export default class Player implements Iplayer{
@@ -25,6 +26,7 @@ export default class Player implements Iplayer{
     positionIndex;
     score;
     bulletsRemaining;
+    bankBalance;
     constructor(p:Point,w:number,h:number,pi:number=1){
         this.position=p;
         this.width=w;
@@ -37,6 +39,7 @@ export default class Player implements Iplayer{
         this.positionIndex=pi;
         this.score=0;
         this.bulletsRemaining=playerConstants.bulletsRemaining;
+        this.bankBalance=playerConstants.bankBalance;
     }
 
     draw(contextOb:CanvasRenderingContext2D):void{
@@ -106,7 +109,7 @@ export default class Player implements Iplayer{
                 obj.position.x+obj.width<=this.position.x+obj.width+this.width
                 ){
                 obj.hide();
-                this.score +=10;
+                this.bankBalance +=10;
                }
             }
         );
