@@ -6,6 +6,7 @@ import mainConstants from "./constants/mainConstants";
 import spritelocations from "./constants/spritelocations";
 import Coin from "./coins";
 import gameoverPage from "./pages/gameover";
+import playerConstants from "./constants/player";
 interface Iplayer{
     position:Point;
     width:number;
@@ -13,6 +14,7 @@ interface Iplayer{
     body:Rectangle;
     positionIndex:number;
     score:number;
+    bulletsRemaining:number;
 }
 
 export default class Player implements Iplayer{
@@ -22,6 +24,7 @@ export default class Player implements Iplayer{
     body;
     positionIndex;
     score;
+    bulletsRemaining;
     constructor(p:Point,w:number,h:number,pi:number=1){
         this.position=p;
         this.width=w;
@@ -33,6 +36,7 @@ export default class Player implements Iplayer{
             this.height);
         this.positionIndex=pi;
         this.score=0;
+        this.bulletsRemaining=playerConstants.bulletsRemaining;
     }
 
     draw(contextOb:CanvasRenderingContext2D):void{

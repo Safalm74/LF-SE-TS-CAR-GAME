@@ -8,15 +8,19 @@ import Point from "./geomerty/point";
 import Coin from "./coins";
 import coinsSprite from "./constants/coinsSprite";
 import { player1 } from "./initialize";
+import Bullet from "./bullets";
 
 const canvasMain: HTMLCanvasElement=document.createElement('canvas') as HTMLCanvasElement;
-const msg=document.createElement('h1');
-msg.style.backgroundColor="wheat"
+const scoreTopMsg=document.createElement('h1');
+scoreTopMsg.style.backgroundColor="wheat"
+const bulletsRemainingTopMsg=document.createElement('h1');
+bulletsRemainingTopMsg.style.backgroundColor="wheat"
 
 function loadDOM(){
     if (mainConstants.rootDiv){
         mainConstants.rootDiv.innerHTML='';
-        mainConstants.rootDiv.appendChild(msg);
+        mainConstants.rootDiv.appendChild(scoreTopMsg);
+        mainConstants.rootDiv.appendChild(bulletsRemainingTopMsg);
         mainConstants.rootDiv.appendChild(canvasMain);
     
     }
@@ -27,6 +31,7 @@ const ctx=canvasMain.getContext('2d') as CanvasRenderingContext2D;
 
 let obstaclesArray: Obstacle[]=[];
 let coinsArray: Coin[]=[];
+let bulletArray: Bullet[]=[];
 
 function createObsticles(){
     let positionIndex:number
@@ -113,13 +118,16 @@ setInterval(
                 }
             }
         );
+        bulletArray=bulletArray.filter(
+            (obj)=>{
+                return obj.position.y<0;
+            }
+        );
     },
     obstacleConstant.vtyp['truck'].speed*76+500
 );
 
 function gameMainloop(){
-
-    console.log('then in gameloop',mainConstants.inGame)
     ctx.clearRect(
         0,
         0,
@@ -144,13 +152,20 @@ function gameMainloop(){
             obj.draw(ctx);
         }
     );
+    bulletArray.forEach(
+        (obj)=>{
+            obj.update();
+            obj.draw(ctx);
+        }
+    );
     player1.update();
     player1.draw(ctx);
     player1.checkCollision(obstaclesArray,coinsArray);
 
     
 
-    msg.innerHTML=`score: ${player1.score}`;
+    scoreTopMsg.innerHTML=`score: ${player1.score}`;
+    bulletsRemainingTopMsg.innerHTML=`BulletsRemaining: ${player1.bulletsRemaining}`;
     if (mainConstants.inGame){
         requestAnimationFrame(gameMainloop);
     }
@@ -164,7 +179,6 @@ function gameMainloop(){
 export default function canvasInitialize(){
     if (mainConstants.rootDiv) mainConstants.rootDiv.innerHTML='';
     loadDOM();
-    console.log('here')
     mainConstants.inGame=true;
     const canvasWidth:number= canvasConstants.windowWidth;
     const canvasHeight:number=  canvasConstants.windowHeight;
@@ -202,6 +216,22 @@ export default function canvasInitialize(){
                         
                         clearInterval(canvasConstants.movingInterval);
                         player1.move(false,canvasConstants.widthDifference,playerConstants.offset);
+                        break;
+                    case 'w':
+                        if (player1.bulletsRemaining>0){
+                            player1.bulletsRemaining--;
+                            const bulletObj: Bullet=new Bullet(
+                                new Point(
+                                    player1.positionIndex*canvasConstants.widthDifference+playerConstants.offset,
+                                    player1.position.y),
+                                coinsSprite.width,
+                                coinsSprite.height,
+                                obstacleConstant.vtyp.truck.speed,
+                                player1.positionIndex ,
+                                0
+                            )
+                            bulletArray.push(bulletObj)
+                        }
                         break;
                 }
                 

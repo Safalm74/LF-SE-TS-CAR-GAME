@@ -1,7 +1,6 @@
 import mainConstants from "../constants/mainConstants";
 import loadHomePage from "./home";
-import { player1, reset } from "../initialize";
-
+import { reset } from "../initialize";
 export default function gameoverPage(score:number){
     const wrapper= document.createElement('div');
     wrapper.style.width= `${window.innerWidth*0.2}px`;
@@ -26,6 +25,7 @@ export default function gameoverPage(score:number){
     const goHomeBtn=document.createElement('button');
     goHomeBtn.value="Go Home";
     goHomeBtn.innerHTML="Go Home";
+    goHomeBtn.className='go-home-btn'
     goHomeBtn.addEventListener(
         'click',
         ()=>{
@@ -42,7 +42,6 @@ export default function gameoverPage(score:number){
     if (mainConstants.rootDiv){
         mainConstants.rootDiv.appendChild(wrapper);
         reset();
-        console.log(player1);
     }
     
 }

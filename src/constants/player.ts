@@ -8,6 +8,7 @@ type PlayerConstant={
     offset:number;
     movingInterval:any;
     playerScore:number;
+    bulletsRemaining:number;
 }
 
 const width=0.4*canvasConstants.widthDifference;
@@ -22,7 +23,8 @@ const playerConstants: PlayerConstant={
     positionIndex:1,
     offset:Offset,
     movingInterval:null,
-    playerScore:0
+    playerScore:0,
+    bulletsRemaining:5
 
 }
 export default playerConstants;

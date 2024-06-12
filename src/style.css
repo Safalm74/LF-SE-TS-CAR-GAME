@@ -41,3 +41,15 @@ body{
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.go-home-btn{
+  background-color: wheat;
+  font-size: 1.4rem;
+  margin-top: 0 2rem;
+  padding: 1rem 2rem;
+  border-radius: 5rem;
+}
+.go-home-btn:hover{
+  color:wheat;
+  background-color: black;
+}
