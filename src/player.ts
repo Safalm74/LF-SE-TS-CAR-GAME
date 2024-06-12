@@ -5,7 +5,7 @@ import canvasConstants from "./constants/canvasShapes";
 import mainConstants from "./constants/mainConstants";
 import spritelocations from "./constants/spritelocations";
 import Coin from "./coins";
-import gameoverPage from "./pages/gameover";
+//import gameoverPage from "./pages/gameover";
 interface Iplayer{
     position:Point;
     width:number;
@@ -48,8 +48,7 @@ export default class Player implements Iplayer{
             this.position.y,
             this.width,
             this.height);
-        contextOb.strokeRect(this.position.x,this.position.y,this.width,this.height)
-    }
+            }
     move(left:boolean,widthDifference:number,offset:number){
         const oldPosition=this.position.x;
         let adder:number;
@@ -85,12 +84,13 @@ export default class Player implements Iplayer{
                 document.body.style.backgroundColor="white";
                if (
                 obj.position.y+obj.height  >= this.position.y&&
+                obj.position.y>= this.position.y + this.height&&
                 obj.position.x+obj.width>= this.position.x &&
                 obj.position.x+obj.width<=this.position.x+obj.width+this.width
                 ){
-                mainConstants.inGame=false;
+               // mainConstants.inGame=false;
                 document.body.style.backgroundColor="red";
-                gameoverPage(this.score);
+               // gameoverPage(this.score);
                 console.log('colide');
                }
             }

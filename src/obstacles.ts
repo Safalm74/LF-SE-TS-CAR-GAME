@@ -43,8 +43,7 @@ export default class Obstacle implements Iobstacle{
             this.width,
             this.height);
 
-        contextOb.strokeRect(this.position.x,this.position.y,this.width,this.height)
-        }
+         }
     move(){
         this.position.y +=this.speed;
     }

@@ -114,7 +114,7 @@ setInterval(
             }
         );
     },
-    obstacleConstant.vtyp['truck'].speed*76
+    obstacleConstant.vtyp['truck'].speed*76+500
 );
 
 function gameMainloop(){
