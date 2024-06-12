@@ -124,7 +124,7 @@ setInterval(
             }
         );
     },
-    obstacleConstant.vtyp['truck'].speed*76+500
+    obstacleConstant.vtyp['truck'].speed*76
 );
 
 function gameMainloop(){
@@ -156,11 +156,13 @@ function gameMainloop(){
         (obj)=>{
             obj.update();
             obj.draw(ctx);
+            obj.checkCollision(obstaclesArray);
         }
     );
     player1.update();
     player1.draw(ctx);
     player1.checkCollision(obstaclesArray,coinsArray);
+
 
     
 
@@ -222,7 +224,7 @@ export default function canvasInitialize(){
                             player1.bulletsRemaining--;
                             const bulletObj: Bullet=new Bullet(
                                 new Point(
-                                    player1.positionIndex*canvasConstants.widthDifference+playerConstants.offset,
+                                    player1.position.x,
                                     player1.position.y),
                                 coinsSprite.width,
                                 coinsSprite.height,
